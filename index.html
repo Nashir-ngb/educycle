@@ -1,0 +1,2502 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Educycle - Upcycled Magnetic Math Learning Boards</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,500;1,700&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ── DESIGN SYSTEM TOKENS ── */
+    :root {
+      --green-primary: #2e7d32;
+      /* Leaf Green */
+      --green-dark: #1b5e20;
+      --green-light: #e8f5e9;
+      --orange-primary: #f57c00;
+      /* Warm Logo Orange */
+      --orange-dark: #e65100;
+      --orange-light: #fff3e0;
+      --ink: #1c201c;
+      --cream: #faf9f5;
+      --paper: #ffffff;
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(46, 125, 50, 0.08);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.6;
+      overflow-x: hidden;
+      padding-top: 70px;
+      /* offset for fixed navbar */
+    }
+
+    /* ── NAVIGATION BAR ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5vw;
+      height: 70px;
+      background: rgba(250, 249, 245, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(46, 125, 50, 0.1);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: var(--green-dark);
+      text-decoration: none;
+    }
+
+    .nav-logo img {
+      height: 44px;
+      width: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--orange-primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 0.95rem;
+      font-weight: 500;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 2.5px;
+      background: var(--orange-primary);
+      transform: scaleX(0);
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: var(--green-primary);
+    }
+
+    .nav-links a:hover::after {
+      transform: scaleX(1);
+    }
+
+    .nav-cta {
+      background: var(--green-primary);
+      color: #fff !important;
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-weight: 600 !important;
+      box-shadow: 0 4px 12px rgba(46, 125, 50, 0.15);
+    }
+
+    .nav-cta::after {
+      display: none !important;
+    }
+
+    .nav-cta:hover {
+      background: var(--orange-primary) !important;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(245, 124, 0, 0.25);
+    }
+
+    /* Mobile hamburger button */
+    .mobile-menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 28px;
+      height: 20px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 150;
+      padding: 0;
+    }
+
+    .mobile-menu-toggle .bar {
+      width: 100%;
+      height: 3px;
+      background-color: var(--green-dark);
+      border-radius: 99px;
+      transition: var(--transition);
+    }
+
+    /* ── HERO SECTION ── */
+    #home {
+      min-height: calc(100vh - 70px);
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      padding: 50px 5vw 60px;
+      position: relative;
+      overflow: hidden;
+      gap: 4rem;
+      background: radial-gradient(circle at top right, var(--green-light) 0%, transparent 60%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--orange-light);
+      border: 1px solid rgba(245, 124, 0, 0.3);
+      border-radius: 999px;
+      padding: 6px 16px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--orange-dark);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-eyebrow span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green-primary);
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .hero-title span {
+      color: var(--green-primary);
+    }
+
+    .hero-title em {
+      color: var(--orange-primary);
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: #4a504a;
+      max-width: 580px;
+      margin-bottom: 2.5rem;
+      font-weight: 400;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--orange-primary);
+      color: #fff;
+      padding: 14px 30px;
+      border-radius: 999px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(245, 124, 0, 0.2);
+    }
+
+    .btn-primary:hover {
+      background: var(--orange-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(230, 81, 0, 0.3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--green-primary);
+      padding: 14px 30px;
+      border-radius: 999px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      border: 2px solid var(--green-primary);
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-outline:hover {
+      background: var(--green-primary);
+      color: #fff;
+    }
+
+    /* ── HERO VISUAL — Layered Masked Layout ── */
+    .hero-visual {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 3rem 2rem;
+    }
+
+    /* Depth layer — gradient shape offset behind the image */
+    .hero-deco-back {
+      position: absolute;
+      width: calc(100% - 4rem);
+      max-width: 420px;
+      height: 90%;
+      background: linear-gradient(135deg, var(--green-primary) 0%, var(--orange-primary) 100%);
+      clip-path: polygon(0 0, 88% 0, 100% 12%, 100% 100%, 12% 100%, 0 88%);
+      top: calc(3rem + 20px);
+      left: calc(2rem + 20px);
+      z-index: 2;
+      opacity: 0.18;
+      border-radius: 4px;
+    }
+
+    /* Dot grid — top-right corner */
+    .hero-deco-dots {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 140px;
+      height: 140px;
+      background-image: radial-gradient(circle, var(--green-primary) 1.5px, transparent 1.5px);
+      background-size: 14px 14px;
+      opacity: 0.22;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Large outer ring — bottom-left */
+    .hero-deco-ring {
+      position: absolute;
+      width: 210px;
+      height: 210px;
+      border: 24px solid var(--orange-primary);
+      border-radius: 50%;
+      opacity: 0.07;
+      bottom: -10px;
+      left: -10px;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Small accent ring — top-left */
+    .hero-deco-ring-sm {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border: 3px solid var(--green-primary);
+      border-radius: 50%;
+      opacity: 0.3;
+      top: 1.2rem;
+      left: 1.2rem;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Diamond accent — top-right */
+    .hero-deco-diamond {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      background: var(--orange-primary);
+      opacity: 0.22;
+      top: 2.5rem;
+      right: 1.8rem;
+      transform: rotate(45deg);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Horizontal accent line — bottom-right */
+    .hero-deco-line {
+      position: absolute;
+      width: 65px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--orange-primary), transparent);
+      opacity: 0.4;
+      bottom: 3rem;
+      right: 2rem;
+      border-radius: 2px;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Masked image */
+    .hero-image-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+      clip-path: polygon(0 0, 88% 0, 100% 12%, 100% 100%, 12% 100%, 0 88%);
+      overflow: hidden;
+      background: var(--paper);
+      transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+      z-index: 3;
+      box-shadow: 0 24px 56px rgba(46, 125, 50, 0.18);
+    }
+
+    .hero-image-wrapper:hover {
+      transform: translateY(-6px) scale(1.015);
+    }
+
+    .hero-image-wrapper img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Glass card — positioned relative to .hero-visual, floats above the masked image */
+    .hero-glass-card {
+      position: absolute;
+      bottom: 1.2rem;
+      left: 1.5rem;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      padding: 14px 18px;
+      border-radius: 16px;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      max-width: 270px;
+      z-index: 5;
+    }
+
+    .hgc-icon {
+      font-size: 1.8rem;
+      background: var(--orange-light);
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .hgc-text h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--green-dark);
+    }
+
+    .hgc-text p {
+      font-size: 0.75rem;
+      color: #555;
+    }
+
+    /* ── STATS STRIP ── */
+    .stats-strip {
+      background: linear-gradient(135deg, var(--green-dark), var(--green-primary));
+      padding: 35px 5vw;
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-items: center;
+      border-radius: 0;
+      box-shadow: inset 0 -4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .stat-item {
+      text-align: center;
+      color: #fff;
+    }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--orange-primary);
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      opacity: 0.9;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-top: 6px;
+      font-weight: 600;
+    }
+
+    /* ── SECTION COMMON ── */
+    section {
+      padding: 100px 5vw;
+    }
+
+    .section-eyebrow {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--orange-primary);
+      margin-bottom: .6rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      line-height: 1.2;
+      margin-bottom: 1.2rem;
+      color: var(--green-dark);
+    }
+
+    .section-sub {
+      color: #4a504a;
+      max-width: 600px;
+      font-size: 1.05rem;
+      margin-bottom: 3.5rem;
+    }
+
+    /* ── ABOUT SECTION ── */
+    #about {
+      background: var(--paper);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .about-pillars {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      margin-top: 2rem;
+    }
+
+    .pillar {
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+      padding: 1.4rem;
+      border-radius: var(--radius);
+      border: 1px solid rgba(46, 125, 50, 0.1);
+      background: var(--cream);
+      transition: var(--transition);
+    }
+
+    .pillar:hover {
+      border-color: var(--orange-primary);
+      transform: translateX(6px);
+      background: #fff;
+    }
+
+    .pillar-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--green-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      color: var(--green-primary);
+    }
+
+    .pillar-text h4 {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: .2rem;
+      color: var(--green-dark);
+    }
+
+    .pillar-text p {
+      font-size: 0.88rem;
+      color: #5a605a;
+      line-height: 1.5;
+    }
+
+    .about-visual {
+      background: linear-gradient(145deg, var(--green-dark), var(--green-primary));
+      border-radius: 28px;
+      padding: 3rem;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+      position: relative;
+      box-shadow: 0 15px 35px rgba(27, 94, 32, 0.25);
+    }
+
+    .av-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      line-height: 1.25;
+    }
+
+    .av-quote {
+      font-size: 0.95rem;
+      opacity: .9;
+      font-style: italic;
+      line-height: 1.6;
+      border-left: 3px solid var(--orange-primary);
+      padding-left: 15px;
+    }
+
+    .av-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .8rem;
+    }
+
+    .av-badge {
+      background: rgba(255, 255, 255, .15);
+      border: 1px solid rgba(255, 255, 255, .3);
+      border-radius: 999px;
+      padding: 6px 16px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--orange-light);
+    }
+
+    .zero-tags {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .zero-tag {
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: .03em;
+    }
+
+    .zt-green {
+      background: rgba(255, 255, 255, .15);
+      border: 2px solid rgba(255, 255, 255, .4);
+      color: #fff;
+    }
+
+    /* ── THE PRODUCT SECTION ── */
+    #product {
+      background: var(--cream);
+    }
+
+    .product-showcase {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      background: var(--paper);
+      padding: 4rem;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .product-gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .product-main-img {
+      width: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(46, 125, 50, 0.12);
+    }
+
+    .product-main-img img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .product-badge-row {
+      display: flex;
+      gap: 0.8rem;
+    }
+
+    .badge-eco {
+      background: var(--green-light);
+      color: var(--green-dark);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-concept {
+      background: var(--orange-light);
+      color: var(--orange-dark);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .product-info-details h3 {
+      font-size: 1.8rem;
+      color: var(--green-dark);
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    .product-info-price {
+      font-size: 1.8rem;
+      color: var(--orange-primary);
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .product-info-price span {
+      font-size: 0.9rem;
+      color: #6a706a;
+      font-weight: 400;
+    }
+
+    .product-info-desc {
+      color: #4a504a;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .product-features-list {
+      margin-bottom: 2.5rem;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .product-features-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--ink);
+    }
+
+    .product-features-list li::before {
+      content: '✓';
+      color: var(--orange-primary);
+      font-weight: 700;
+      background: var(--orange-light);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .product-actions {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    /* ── HOW IT WORKS SECTION ── */
+    #how-it-works {
+      background: var(--paper);
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.2rem;
+      position: relative;
+    }
+
+    .step-card {
+      background: var(--cream);
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      border: 1px solid rgba(46, 125, 50, 0.08);
+      position: relative;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .step-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--orange-primary);
+      box-shadow: var(--shadow);
+    }
+
+    .step-num {
+      position: absolute;
+      top: -16px;
+      left: 16px;
+      width: 36px;
+      height: 36px;
+      background: var(--orange-primary);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1rem;
+      box-shadow: 0 4px 10px rgba(245, 124, 0, 0.3);
+    }
+
+    .step-img-container {
+      width: 100%;
+      height: 120px;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(46, 125, 50, 0.1);
+    }
+
+    .step-img-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .step-card h3 {
+      font-size: 1.05rem;
+      color: var(--green-dark);
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    .step-card p {
+      font-size: 0.82rem;
+      color: #5a605a;
+      line-height: 1.5;
+    }
+
+    /* ── MILESTONES / TIMELINE ── */
+    #milestones {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    #milestones .section-title {
+      color: #fff;
+    }
+
+    #milestones .section-sub {
+      color: rgba(255, 255, 255, .7);
+    }
+
+    #milestones .section-eyebrow {
+      color: var(--orange-primary);
+    }
+
+    .timeline {
+      position: relative;
+      margin-top: 1rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 22px;
+      top: 0;
+      bottom: 0;
+      width: 2.5px;
+      background: linear-gradient(to bottom, var(--green-primary), var(--orange-primary));
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .timeline-dot {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--green-primary);
+      border: 3px solid var(--orange-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+      color: #fff;
+    }
+
+    .timeline-dot.gold {
+      background: #d84315;
+      border-color: var(--orange-primary);
+    }
+
+    .timeline-content {
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: 16px;
+      padding: 1.5rem;
+      flex: 1;
+      transition: var(--transition);
+    }
+
+    .timeline-content:hover {
+      background: rgba(255, 255, 255, .09);
+      border-color: var(--orange-primary);
+    }
+
+    .tl-meta {
+      display: flex;
+      gap: .8rem;
+      align-items: center;
+      margin-bottom: .6rem;
+      flex-wrap: wrap;
+    }
+
+    .tl-date {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--orange-primary);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .tl-badge {
+      font-size: .7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    .tl-badge.win {
+      background: var(--orange-primary);
+      color: #fff;
+    }
+
+    .tl-badge.pitch {
+      background: var(--green-primary);
+      color: #fff;
+    }
+
+    .tl-badge.feat {
+      background: rgba(255, 255, 255, .15);
+      color: #fff;
+    }
+
+    .tl-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: .4rem;
+    }
+
+    .tl-desc {
+      font-size: .88rem;
+      color: rgba(255, 255, 255, .75);
+      line-height: 1.6;
+    }
+
+    /* Timeline image placeholders — always visible, beautiful hover zoom */
+    .tl-image-container {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 14px;
+      overflow: hidden;
+      margin-top: 1.2rem;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+
+    .tl-image {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .tl-image-container:hover .tl-image {
+      transform: scale(1.04);
+    }
+
+    /* ── MEDIA GALLERY ── */
+    #media {
+      background: var(--cream);
+    }
+
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .media-card {
+      background: var(--paper);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1px solid rgba(46, 125, 50, 0.05);
+    }
+
+    .media-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 32px rgba(46, 125, 50, 0.12);
+    }
+
+    .media-thumb {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .media-play {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, .3);
+      opacity: 0;
+      transition: opacity .2s;
+    }
+
+    .media-play-btn {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+    }
+
+    .media-card:hover .media-play {
+      opacity: 1;
+    }
+
+    .media-info {
+      padding: 1.2rem;
+    }
+
+    .media-type {
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--orange-primary);
+      margin-bottom: .3rem;
+    }
+
+    .media-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--green-dark);
+    }
+
+    .media-desc {
+      font-size: .85rem;
+      color: #5a605a;
+      margin-top: .3rem;
+    }
+
+    /* ── TESTIMONIALS ── */
+    #testimonials {
+      background: var(--green-light);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .testimonial-card {
+      background: var(--paper);
+      border-radius: 20px;
+      padding: 2.2rem;
+      box-shadow: var(--shadow);
+      position: relative;
+      border: 1px solid rgba(46, 125, 50, 0.05);
+    }
+
+    .testimonial-card::before {
+      content: '"';
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem;
+      color: var(--green-light);
+      line-height: 1;
+    }
+
+    .t-text {
+      font-size: 0.92rem;
+      color: #3a403a;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+
+    .t-author {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+    }
+
+    .t-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--green-primary), var(--orange-primary));
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: .95rem;
+    }
+
+    .t-name {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--green-dark);
+    }
+
+    .t-role {
+      font-size: .78rem;
+      color: #6a706a;
+    }
+
+    /* ── PARTNERS ── */
+    #partners {
+      background: var(--paper);
+      padding: 80px 5vw;
+    }
+
+    .partners-title {
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: #8a908a;
+      margin-bottom: 2.5rem;
+    }
+
+    .partners-logos {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .partner-logo {
+      padding: 16px 24px;
+      border-radius: 12px;
+      background: var(--cream);
+      border: 1px solid rgba(46, 125, 50, 0.1);
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .partner-logo:hover {
+      border-color: var(--orange-primary);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    .partner-logo img {
+      height: 52px;
+      width: auto;
+      object-fit: contain;
+      filter: none;
+      transition: var(--transition);
+    }
+
+    /* ── CALL TO ACTION (CTA) ── */
+    #cta {
+      background: linear-gradient(135deg, var(--green-dark) 0%, #0e3011 100%);
+      padding: 100px 5vw;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #cta::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(245, 124, 0, 0.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    #cta h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      color: #fff;
+      margin-bottom: 1.2rem;
+      line-height: 1.15;
+    }
+
+    #cta p {
+      color: rgba(255, 255, 255, .8);
+      font-size: 1.1rem;
+      margin-bottom: 2.5rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-actions {
+      display: flex;
+      gap: 1.2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-white {
+      background: var(--orange-primary);
+      color: #fff;
+      padding: 14px 34px;
+      border-radius: 999px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      text-decoration: none;
+      display: inline-block;
+      transition: var(--transition);
+      box-shadow: 0 4px 14px rgba(245, 124, 0, 0.3);
+    }
+
+    .btn-white:hover {
+      background: var(--orange-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(230, 81, 0, 0.4);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: #fff;
+      padding: 14px 34px;
+      border-radius: 999px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 1.05rem;
+      text-decoration: none;
+      display: inline-block;
+      border: 2px solid rgba(255, 255, 255, .4);
+      transition: var(--transition);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, .1);
+      border-color: #fff;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      color: rgba(255, 255, 255, .7);
+      padding: 80px 5vw 30px;
+      border-top: 4px solid var(--orange-primary);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 4rem;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      margin-bottom: 1.2rem;
+    }
+
+    .footer-logo .mark {
+      width: 34px;
+      height: 34px;
+      background: var(--orange-primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 0.9rem;
+    }
+
+    .footer-desc {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      max-width: 300px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: .8rem;
+      margin-top: 1.5rem;
+    }
+
+    .social-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, .7);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .social-btn svg {
+      transition: var(--transition);
+    }
+
+    .social-btn.tiktok-btn:hover {
+      background: #000;
+      border-color: #000;
+      color: #fe2c55;
+      /* TikTok Brand Pink */
+    }
+
+    .social-btn.instagram-btn:hover {
+      background: #e1306c;
+      border-color: #e1306c;
+      color: #fff;
+    }
+
+    .social-btn.linkedin-btn:hover {
+      background: #0a66c2;
+      border-color: #0a66c2;
+      color: #fff;
+    }
+
+    .social-btn.email-btn:hover {
+      background: var(--orange-primary);
+      border-color: var(--orange-primary);
+      color: #fff;
+    }
+
+    .footer-col h5 {
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: .7rem;
+    }
+
+    .footer-col a {
+      color: rgba(255, 255, 255, .65);
+      text-decoration: none;
+      font-size: 0.88rem;
+      transition: color .2s;
+    }
+
+    .footer-col a:hover {
+      color: var(--orange-primary);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, .08);
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .footer-bottom a {
+      color: var(--orange-primary);
+      text-decoration: none;
+    }
+
+    .footer-bottom a:hover {
+      text-decoration: underline;
+    }
+
+    /* ── MOCK ORDER TOAST (Fixed position) ── */
+    .cart-toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 999;
+      background: var(--green-primary);
+      color: #fff;
+      padding: 1rem 1.8rem;
+      border-radius: 14px;
+      font-weight: 600;
+      font-size: .95rem;
+      box-shadow: 0 8px 32px rgba(46, 125, 50, 0.2);
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cart-toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── MOBILE COMPATIBILITY & STYLING ── */
+    @media (max-width: 992px) {
+      #home {
+        grid-template-columns: 1fr;
+        padding: 30px 5vw 50px;
+        min-height: auto;
+        text-align: center;
+        gap: 2.5rem;
+      }
+
+      .hero-content {
+        order: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .hero-sub {
+        margin: 0 auto 2rem;
+      }
+
+      .hero-actions {
+        justify-content: center;
+      }
+
+      .hero-visual {
+        order: 2;
+      }
+
+      .hero-image-wrapper {
+        max-width: 380px;
+      }
+
+      .hero-glass-card {
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: -15px;
+        width: 90%;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+      }
+
+      .product-showcase {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        padding: 2.5rem;
+      }
+
+      .steps-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem 1.2rem;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1.2fr;
+        gap: 3rem;
+      }
+
+      /* Mobile nav links overlay drawer */
+      .mobile-menu-toggle {
+        display: flex;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        right: -100%;
+        width: 280px;
+        height: calc(100vh - 70px);
+        background: var(--cream);
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding: 3rem 2rem;
+        gap: 2rem;
+        box-shadow: -10px 10px 30px rgba(0, 0, 0, 0.05);
+        transition: var(--transition);
+        border-left: 1px solid rgba(46, 125, 50, 0.1);
+        z-index: 140;
+      }
+
+      .nav-links.open {
+        right: 0;
+      }
+
+      .nav-links li {
+        width: 100%;
+      }
+
+      .nav-links a {
+        font-size: 1.1rem;
+        display: block;
+        width: 100%;
+      }
+
+      .nav-links .nav-cta {
+        text-align: center;
+        margin-top: 1rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .steps-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-strip {
+        padding: 25px 5vw;
+        gap: 2rem;
+      }
+
+      .product-actions {
+        flex-direction: column;
+      }
+
+      .product-actions .btn-primary,
+      .product-actions .btn-outline {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .steps-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-8px)
+      }
+    }
+
+    .float {
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── SLIDE-IN ANIMATIONS ── */
+    .slide-left {
+      opacity: 0;
+      transform: translateX(-50px);
+      transition: opacity 0.7s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .slide-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .slide-right {
+      opacity: 0;
+      transform: translateX(50px);
+      transition: opacity 0.7s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .slide-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Stagger delays for timeline items sliding in */
+    .timeline-item:nth-child(1) .slide-left {
+      transition-delay: 0s;
+    }
+
+    .timeline-item:nth-child(2) .slide-left {
+      transition-delay: 0.08s;
+    }
+
+    .timeline-item:nth-child(3) .slide-left {
+      transition-delay: 0.16s;
+    }
+
+    .timeline-item:nth-child(4) .slide-left {
+      transition-delay: 0.24s;
+    }
+
+    .timeline-item:nth-child(5) .slide-left {
+      transition-delay: 0.32s;
+    }
+
+    .timeline-item:nth-child(6) .slide-left {
+      transition-delay: 0.40s;
+    }
+
+    .timeline-item:nth-child(7) .slide-left {
+      transition-delay: 0.48s;
+    }
+
+    .timeline-item:nth-child(8) .slide-left {
+      transition-delay: 0.56s;
+    }
+
+    .timeline-item:nth-child(9) .slide-left {
+      transition-delay: 0.64s;
+    }
+
+    /* ── INTERACTIVE ORDER MODAL ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(28, 32, 28, 0.6);
+      backdrop-filter: blur(5px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background: var(--paper);
+      border-radius: 24px;
+      padding: 2.5rem;
+      max-width: 500px;
+      width: 90%;
+      transform: scale(.92);
+      transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      position: relative;
+      color: var(--ink);
+    }
+
+    .modal-overlay.open .modal {
+      transform: scale(1);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: var(--cream);
+      border: none;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .modal-close:hover {
+      background: var(--orange-light);
+      color: var(--orange-dark);
+    }
+
+    .modal h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+      color: var(--green-dark);
+      font-weight: 700;
+    }
+
+    .modal p {
+      color: #5a605a;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: var(--green-dark);
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid rgba(46, 125, 50, 0.2);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .form-input:focus {
+      border-color: var(--orange-primary);
+      box-shadow: 0 0 0 3px rgba(245, 124, 0, 0.15);
+    }
+
+    .qty-selector {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .qty-selector button {
+      background: var(--cream);
+      border: 1px solid rgba(46, 125, 50, 0.15);
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .qty-selector button:hover {
+      background: var(--green-light);
+      color: var(--green-primary);
+    }
+
+    .qty-val {
+      font-weight: 700;
+      font-size: 1.1rem;
+      min-width: 30px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a class="nav-logo" href="#home">
+      <img src="images/logo.png" alt="Educycle Logo" onerror="this.style.display='none'">
+      Educycle
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about" onclick="closeMobileMenu()">Our Concept</a></li>
+      <li><a href="#product" onclick="closeMobileMenu()">The Board</a></li>
+      <li><a href="#how-it-works" onclick="closeMobileMenu()">How It Works</a></li>
+      <li><a href="#milestones" onclick="closeMobileMenu()">Achievements</a></li>
+      <li><a href="#media" onclick="closeMobileMenu()">Media</a></li>
+      <li><a href="https://wa.me/60174832498?text=Hi%20Educycle%20Team!%20I%20would%20like%20to%20order%20the%20Magnetic%20Math%20Learning%20Board%20(RM%2025.00).%20Please%20share%20payment%20and%20delivery%20details.%20Thank%20you!" target="_blank" class="nav-cta" onclick="closeMobileMenu()">Order Board</a></li>
+    </ul>
+    <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle Menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section id="home" class="sticky-section">
+    <div class="hero-content fade-up">
+      <h1 class="hero-title">
+        Where recycling<br><em>meets education</em>
+      </h1>
+      <p class="hero-sub">We collect discarded milk bottle caps from the cafeteria, clean them, insert magnets inside,
+        and stick math-equation tags on top. Children use these magnetic caps on our upcycled wood board to solve
+        mathematics problems interactively.</p>
+      <div class="hero-actions">
+        <a href="https://wa.me/60174832498?text=Hi%20Educycle%20Team!%20I%20would%20like%20to%20order%20the%20Magnetic%20Math%20Learning%20Board%20(RM%2025.00).%20Please%20share%20payment%20and%20delivery%20details.%20Thank%20you!" target="_blank" class="btn-primary">Get Your Math Board</a>
+        <a href="Educycle_Math_Activity_Book.pdf" download class="btn-outline">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Download Free PDF Guide
+        </a>
+      </div>
+    </div>
+    <div class="hero-visual float">
+      <!-- Geometric decorations -->
+      <div class="hero-deco-dots"></div>
+      <div class="hero-deco-ring"></div>
+      <div class="hero-deco-ring-sm"></div>
+      <div class="hero-deco-diamond"></div>
+      <div class="hero-deco-line"></div>
+      <div class="hero-deco-back"></div>
+      <!-- Masked image -->
+      <div class="hero-image-wrapper">
+        <img src="hero_math_board.jpg"
+          alt="Educycle Magnetic Mathematics Learning Board with numbers on plastic bottle caps">
+      </div>
+      <!-- Glass info card — floats outside the clipped wrapper -->
+      <div class="hero-glass-card">
+        <div class="hgc-icon">🥛</div>
+        <div class="hgc-text">
+          <h4>Cafeteria Waste Upcycled</h4>
+          <p>Magnets inside, math tags on top</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS STRIP -->
+  <div class="stats-strip">
+    <div class="stat-item">
+      <div class="stat-num">2,500+</div>
+      <div class="stat-label">Caps Cleaned & Upcycled</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Cafeteria Sourced</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">2</div>
+      <div class="stat-label">Presentation Wins</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">2</div>
+      <div class="stat-label">Universities Reached</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">3ZERO</div>
+      <div class="stat-label">Mission Vision</div>
+    </div>
+  </div>
+
+  <!-- CONCEPT / MISSION -->
+  <section id="about" class="sticky-section">
+    <div class="about-grid">
+      <div class="fade-up">
+        <p class="section-eyebrow">A Simple Idea, Big Impact</p>
+        <h2 class="section-title">Upcycling campus waste into learning tools.</h2>
+        <p class="section-sub">Educycle is an Albukhary International University (AIU) 3Zero Club initiative. When our
+          university provides free milk at the cafeteria, we secure the plastic caps, insert magnets under them, and
+          label them with math questions to support children's math education.</p>
+
+        <div class="about-pillars">
+          <div class="pillar">
+            <div class="pillar-icon">🥛</div>
+            <div class="pillar-text">
+              <h4>Cafeteria Waste Sourcing</h4>
+              <p>We collect milk bottle caps directly from the campus cafeteria, redirecting plastic away from Alor
+                Setar landfills.</p>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">🧲</div>
+            <div class="pillar-text">
+              <h4>Magnetic Interactive Play</h4>
+              <p>Every bottle cap features a secure magnet embedded inside and a numbered or mathematical sticker
+                attached on top.</p>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">🧠</div>
+            <div class="pillar-text">
+              <h4>Tactile Mathematics</h4>
+              <p>Children arrange numbers and arithmetic signs (+, -, ×, ÷, =) directly on the board, enhancing memory
+                and math skills.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fade-up">
+        <div class="about-visual">
+          <div class="av-headline">Aligned with the Global Three Zeros Movement</div>
+          <div class="av-quote">"Under the AIU YSBC 3Zero Club framework, our project falls under the Zero Net Carbon
+            Emission pillar by keeping plastic waste out of landfills and upcycling them into educational materials."
+          </div>
+          <div class="av-badges">
+            <span class="av-badge">🌿 Zero Net Carbon Emission</span>
+            <span class="av-badge">💼 Zero Unemployment</span>
+            <span class="av-badge">⚖️ Zero Poverty</span>
+          </div>
+          <div class="zero-tags">
+            <span class="zero-tag zt-green">AIU 3Zero Club</span>
+            <span class="zero-tag zt-green">YSBC Affiliated</span>
+            <span class="zero-tag zt-green">Social Business</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE BOARD (PRODUCT SHOWCASE) -->
+  <section id="product" class="sticky-section">
+    <div class="fade-up" style="text-align: center;">
+      <p class="section-eyebrow">Our Product</p>
+      <h2 class="section-title">The Educycle Magnetic Math Board</h2>
+      <p class="section-sub" style="margin-left: auto; margin-right: auto;">One board, endless possibilities. Everything
+        you need to turn mathematics equations into an engaging, visual game.</p>
+    </div>
+
+    <div class="product-showcase fade-up">
+      <div class="product-gallery">
+        <div class="product-main-img">
+          <img src="hero_math_board.jpg" alt="Educycle Math Board detailing upcycled bottle caps">
+        </div>
+        <div class="product-badge-row">
+          <span class="badge-eco">♻️ 100% Upcycled Caps</span>
+          <span class="badge-concept">🧠 Hands-on Math</span>
+        </div>
+      </div>
+
+      <div class="product-info-details">
+        <h3>The Complete Learning Set</h3>
+        <div class="product-info-price">RM 25.00 <span>/ complete kit</span></div>
+        <p class="product-info-desc">
+          Our magnetic math board features a sleek, sturdy frame with a metal-backed whiteboard surface. It comes with a
+          complete set of upcycled milk bottle caps collected from the AIU cafeteria, each fitted with a strong inner
+          magnet and scratch-proof math labels.
+        </p>
+
+        <ul class="product-features-list">
+          <li>1x Steel-reinforced wooden learning board (A4 size)</li>
+          <li>20x Number caps (Duplicate sets of digits 0 to 9)</li>
+          <li>8x Operators & sign caps (+, -, ×, ÷, =, ?, &gt;, &lt;)</li>
+          <li>1x Box for storage of the board</li>
+          <li>Free downloadable PDF worksheet book with 100+ questions</li>
+        </ul>
+
+        <div class="product-actions">
+          <a href="https://wa.me/60174832498?text=Hi%20Educycle%20Team!%20I%20would%20like%20to%20order%20the%20Magnetic%20Math%20Learning%20Board%20(RM%2025.00).%20Please%20share%20payment%20and%20delivery%20details.%20Thank%20you!" target="_blank" class="btn-primary">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+            </svg>
+            Order via WhatsApp
+          </a>
+          <a href="Educycle_Math_Activity_Book.pdf" download class="btn-outline">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Download PDF Guide
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS (STEP BY STEP) -->
+  <section id="how-it-works" class="sticky-section">
+    <div class="fade-up" style="text-align: center;">
+      <p class="section-eyebrow">The Upcycling Loop</p>
+      <h2 class="section-title">How waste becomes education</h2>
+      <p class="section-sub" style="margin-left: auto; margin-right: auto;">Follow the journey of a cafeteria milk
+        bottle cap from disposal to the hands of a young mathematician.</p>
+    </div>
+
+    <div class="steps-grid fade-up">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-img-container">
+          <img src="images/Bottle_Cap_Recovery.jpg" alt="Bottle Cap Recovery">
+        </div>
+        <h3>Bottle Cap Recovery</h3>
+        <p>Free milk is served at the cafeteria daily. We salvage these clean high-density plastic caps directly from
+          recovery bins.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-img-container">
+          <img src="images/Bottle_Cap_Washing.jpg" alt="Bottle Cap Washing">
+        </div>
+        <h3>Bottle Cap Washing</h3>
+        <p>Every recovered bottle cap is sanitized and washed to ensure a hygienic educational counter for children.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-img-container">
+          <img src="images/Magnet_Embedding.jpg" alt="Magnet Embedding">
+        </div>
+        <h3>Magnet Embedding</h3>
+        <p>We insert small, powerful neodymium magnets inside the inner rim of each cap and seal them safely with
+          eco-resin.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <div class="step-img-container">
+          <img src="images/Math_Labelling.jpg" alt="Math Labeling">
+        </div>
+        <h3>Math Labeling</h3>
+        <p>Digit (0-9) and math symbol stickers (+, -, ×, ÷, =) are applied firmly to the top faces of the bottle caps.
+        </p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-num">5</div>
+        <div class="step-img-container">
+          <img src="images/Interactive_Math.jpg" alt="Interactive Math">
+        </div>
+        <h3>Interactive Math</h3>
+        <p>Children place the magnetic caps on the metal-backed board to visualize and solve math problems from our PDF
+          guides.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE / ACHIEVEMENTS -->
+  <section id="milestones">
+    <p class="section-eyebrow">Track Record</p>
+    <h2 class="section-title">Social Business Milestones</h2>
+    <p class="section-sub">Educycle's proven journey, from our first university pitch to classrooms, roadshows, and
+      international recognition. Most recent first.</p>
+
+    <div class="timeline">
+
+      <!-- 1. 24 May 2026 — Most Recent -->
+      <div class="timeline-item">
+        <div class="timeline-dot gold">🥈</div>
+        <div class="timeline-content slide-left">
+          <div class="tl-meta">
+            <span class="tl-date">24 May 2026</span>
+            <span class="tl-badge win">🏆 2nd Place · Finals Qualifier</span>
+          </div>
+          <div class="tl-title">Social Business Competition - 2nd Place (Qualifying for Finals)</div>
+          <div class="tl-desc">At the Social Business Competition held at AIU, we secured second place as the best
+            presenter during the second round of pitches, thereby <strong>qualifying for the finals</strong> of the
+            competition.</div>
+          <div class="tl-image-container">
+            <img class="tl-image" src="images/ms_may24_sbcomp2.jpeg"
+              alt="Social Business Competition 2nd Place May 2026">
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. 20 May 2026 -->
+      <div class="timeline-item">
+        <div class="timeline-dot">🏫</div>
+        <div class="timeline-content slide-left">
+          <div class="tl-meta">
+            <span class="tl-date">20 May 2026</span>
+            <span class="tl-badge pitch">School Visit</span>
+          </div>
+          <div class="tl-title">SMK Jabi, Pokok Sena - Form Two Classroom Session</div>
+          <div class="tl-desc">We visited SMK Jabi, Pokok Sena, presenting EduCycle to Form Two students aged 14 and
+            inspiring them to think creatively about solving environmental and educational challenges.</div>
+          <div class="tl-image-container">
+            <img class="tl-image" src="images/ms_may20_smkjabi.jpg" alt="SMK Jabi visit May 2026">
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. 19 May 2026 -->
+      <div class="timeline-item">
+        <div class="timeline-dot">🎪</div>
+        <div class="timeline-content slide-left">
+          <div class="tl-meta">
+            <span class="tl-date">19 May 2026</span>
+            <span class="tl-badge pitch">Public Outreach</span>
+          </div>
+          <div class="tl-title">Public Lecture Series 10 - EduCycle Booth</div>
+          <div class="tl-desc">We set up a booth at Public Lecture Series 10, where we marketed and sold EduCycle kits
+            directly to the public, raising awareness about our product and social mission.</div>
+          <div class="tl-image-container">
+            <img class="tl-image" src="images/ms_may19_lecture.jpeg" alt="Public Lecture Series 10 booth">
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. 15 May 2026 -->
+      <div class="timeline-item">
+        <div class="timeline-dot">🎓</div>
+        <div class="timeline-content slide-left">
+          <div class="tl-meta">
+            <span class="tl-date">15 May 2026</span>
+            <span class="tl-badge feat">University Visit</span>
+          </div>
+          <div class="tl-title">UniMAP Visit - E-Waste & Social Business Sharing Session</div>
+          <div class="tl-desc">During a visit by Universiti Malaysia Perlis (UniMAP) students, we held a sharing session
+            where they presented on e-waste while we introduced EduCycle as a real-world example of social business.
+          </div>
+          <div class="tl-image-container">
+            <img class="tl-image" src="images/ms_may15_unimap.jpg" alt="UniMAP visit May 2026">
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. 26 April 2026 -->
+      <div class="timeline-item">
+        <div class="timeline-dot">🧒</div>
+        <div class="timeline-content slide-left">
+          <div class="tl-meta">
+            <span class="tl-date">26 April 2026</span>
+            <span class="tl-badge pitch">Kindergarten</span>
+          </div>
+          <div class="tl-title">Tadika Pewaris Sufi, Taman PKNK - 12 Young Learners</div>
+          <div class="tl-desc">At Tadika Pewaris Sufi, Taman PKNK, we taught and played with 12 young students, six of
+            them aged 6 and the remaining six aged 5, using EduCycle kits to make learning fun and engaging.</div>
+          <div class="tl-image-container">
+            <img class="tl-image" src="images/ms_apr26_tadika.jpeg" alt="Tadika Pewaris Sufi April 2026">
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. 25 April 2026 -->
+      <div class="timeline-item">
+        <div class="timeline-dot">📚</div>
+        <div class="timeline-content slide-left">
+          <div class="tl-meta">
+            <span class="tl-date">25 April 2026</span>
+            <span class="tl-badge pitch">Literacy Program</span>
+          </div>
+          <div class="tl-title">GoodDeeds Alor Setar - 4-Week Free Literacy Program</div>
+          <div class="tl-desc">At GoodDeeds Alor Setar, we conducted free weekly classes for children aged 4 to9,
+            successfully completing four weeks of hands-on EduCycle learning sessions that improved their basic numeracy
+            and literacy skills.</div>
+          <div class="tl-image-container">
+            <img class="tl-image" src="images/ms_apr25_gooddeeds.jpeg" alt="GoodDeeds Alor Setar April 2026">
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. 9 February 2026 -->
+      <div class="timeline-item">
+        <div class="timeline-dot">🌏</div>
+        <div class="timeline-content slide-left">
+          <div class="tl-meta">
+            <span class="tl-date">9 February 2026</span>
+            <span class="tl-badge feat">University Visit</span>
+          </div>
+          <div class="tl-title">UUM Visit - Sharing & Exchange Session at AIU</div>
+          <div class="tl-desc">Students from Universiti Utara Malaysia (UUM) visited AIU, where we shared and exchanged
+            ideas, introducing EduCycle and our social business mission to their delegation.</div>
+          <div class="tl-image-container">
+            <img class="tl-image" src="images/ms_feb2026_uum.jpeg" alt="UUM visit February 2026">
+          </div>
+        </div>
+      </div>
+
+      <!-- 8. 7 February 2026 -->
+      <div class="timeline-item">
+        <div class="timeline-dot gold">🥇</div>
+        <div class="timeline-content slide-left">
+          <div class="tl-meta">
+            <span class="tl-date">7 February 2026</span>
+            <span class="tl-badge win">🏆 1st Place · Best Presenter</span>
+          </div>
+          <div class="tl-title">Social Business Competition - 1st Place (Best Presenter · Initial Round)</div>
+          <div class="tl-desc">At the Social Business Competition held at AIU, we achieved <strong>first place as the
+              best presenter</strong> during the initial pitching round, beating all competing teams.</div>
+          <div class="tl-image-container">
+            <img class="tl-image" src="images/ms_feb2026_sbcomp1.jpeg"
+              alt="Social Business Competition 1st Place February 2026">
+          </div>
+        </div>
+      </div>
+
+      <!-- 9. 18 December 2025 — Oldest -->
+      <div class="timeline-item">
+        <div class="timeline-dot gold">🌍</div>
+        <div class="timeline-content slide-left">
+          <div class="tl-meta">
+            <span class="tl-date">18 December 2025</span>
+            <span class="tl-badge win">International</span>
+          </div>
+          <div class="tl-title">Kampala International University Visit - 4 Boards Sold to Uganda</div>
+          <div class="tl-desc">Kampala International University visited Albukhary International University
+            for a sharing session about the 3Zero Club. We pitched EduCycle; they purchased <strong>4 sets to bring back
+              to Uganda</strong>.</div>
+          <div class="tl-image-container">
+            <img class="tl-image" src="images/ms_dec2025_kampala.jpeg" alt="Kampala University visit December 2025">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MEDIA -->
+  <section id="media" class="sticky-section">
+    <p class="section-eyebrow">In Action</p>
+    <h2 class="section-title">See Educycle in the field.</h2>
+    <p class="section-sub">Recycling workshops, school roadshows, and conference moments captured in media.</p>
+    <div class="media-grid">
+      <div class="media-card fade-up" onclick="openLink('https://www.tiktok.com/@educycle.3zeroclub')">
+        <div class="media-thumb" style="background:#000;">
+          <img src="images/Tiktok.jpg" alt="Educycle TikTok"
+            style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:0.85;">
+          <div class="media-play">
+            <div class="media-play-btn">▶</div>
+          </div>
+        </div>
+        <div class="media-info">
+          <div class="media-type">🎵 TikTok</div>
+          <div class="media-title">Educycle on TikTok</div>
+          <div class="media-desc">Follow our upcycling process at the AIU labs and watch classroom demo highlights.
+          </div>
+        </div>
+      </div>
+
+      <div class="media-card fade-up" onclick="openLink('https://www.instagram.com/educycle.3zeroclub')">
+        <div class="media-thumb" style="background:#833ab4;">
+          <img src="images/Instagram.jpg" alt="Educycle Instagram"
+            style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:0.9;">
+          <div class="media-play">
+            <div class="media-play-btn">📷</div>
+          </div>
+        </div>
+        <div class="media-info">
+          <div class="media-type">📸 Instagram</div>
+          <div class="media-title">Educycle on Instagram</div>
+          <div class="media-desc">Product updates, campus collection tallies, and volunteer workshop dates.</div>
+        </div>
+      </div>
+
+      <div class="media-card fade-up" onclick="openLink('https://www.linkedin.com/company/edu-cycle/')">
+        <div class="media-thumb" style="background:#0a66c2;">
+          <img src="images/LinkedIn.jpg" alt="Educycle LinkedIn"
+            style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:0.9;">
+          <div class="media-play">
+            <div class="media-play-btn">🔗</div>
+          </div>
+        </div>
+        <div class="media-info">
+          <div class="media-type">💼 LinkedIn</div>
+          <div class="media-title">Educycle on LinkedIn</div>
+          <div class="media-desc">Follow our professional updates, milestones, and social business journey on LinkedIn.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials" class="sticky-section">
+    <p class="section-eyebrow">Community Voices</p>
+    <h2 class="section-title">Feedback on our Math Learning Board</h2>
+    <p class="section-sub">What professors, university coordinators, and parents say about our upcycled education model.
+    </p>
+    <div class="testimonials-grid">
+      <div class="testimonial-card fade-up">
+        <p class="t-text">Educycle is an incredibly practical 3Zero Club initiative at AIU. The team translates simple
+          school dairy waste directly into low-cost, effective tools that improve local children's numeracy.</p>
+        <div class="t-author">
+          <div class="t-avatar">NA</div>
+          <div>
+            <div class="t-name">Prof. Dr. Nor Azilah Hussin</div>
+            <div class="t-role">SBSS Professor · AIU</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card fade-up">
+        <p class="t-text">I got the magnetic board and the caps set for my younger sister. The upcycled caps look cool,
+          stick firmly, and she spends hours solving equations from their downloadable PDF booklet.</p>
+        <div class="t-author">
+          <div class="t-avatar">AKZ</div>
+          <div>
+            <div class="t-name">Abdel Kariem Zaydan</div>
+            <div class="t-role">SBSS Student</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card fade-up">
+        <p class="t-text">Educycle perfectly combines environmental upcycling (Zero Net Carbon). Seeing them pitch their
+          magnetic caps concept at the SBSS conference was inspiring.</p>
+        <div class="t-author">
+          <div class="t-avatar">MA</div>
+          <div>
+            <div class="t-name">Masrani Bin Awang</div>
+            <div class="t-role">ACE-CEDI Coordinator · AIU</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNERS -->
+  <section id="partners" class="sticky-section">
+    <p class="partners-title">Supported by &amp; Affiliated with</p>
+    <div class="partners-logos">
+      <div class="partner-logo"><img src="images/AIU Variation Logo-01 (Full Colour).png" alt="Albukhary International University"></div>
+      <div class="partner-logo"><img src="images/YSBC.png" alt="AIU-YSBC"></div>
+      <div class="partner-logo"><img src="images/3Z Club Global.png" alt="3Zero Club Global"></div>
+      <div class="partner-logo"><img src="images/ACE-SEDI.png" alt="ACE-SEDI"></div>
+      <div class="partner-logo"><img src="images/AIU-3ZERO-SB.png" alt="AIU 3Zero Social Business"></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="cta">
+    <h2>Support Circular Education Today</h2>
+    <p>Order an upcycled math board to support our social business, or download our free math activity PDF to try the
+      worksheets at home.</p>
+    <div class="cta-actions">
+      <a href="https://wa.me/60174832498?text=Hi%20Educycle%20Team!%20I%20would%20like%20to%20order%20the%20Magnetic%20Math%20Learning%20Board%20(RM%2025.00).%20Please%20share%20payment%20and%20delivery%20details.%20Thank%20you!" target="_blank" class="btn-white">Order via WhatsApp</a>
+      <a href="Educycle_Math_Activity_Book.pdf" download class="btn-ghost">Download Questions PDF</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <img src="images/logo.png" alt="Educycle Logo"
+            style="height: 34px; width: 34px; border-radius: 50%; object-fit: cover; border: 1px solid var(--orange-primary);"
+            onerror="this.style.display='none'">
+          Educycle
+        </div>
+        <p class="footer-desc">An AIU 3Zero Club social business upcycling cafeteria plastic caps into magnetic
+          mathematics learning tools to combat carbon waste and support early childhood education.</p>
+
+        <!-- Styled Vector SVG Social Links with Hover color states -->
+        <div class="footer-social">
+          <a class="social-btn linkedin-btn" href="https://www.linkedin.com/company/edu-cycle/" target="_blank"
+            aria-label="LinkedIn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect x="2" y="9" width="4" height="12"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+          </a>
+          <a class="social-btn tiktok-btn" href="https://www.tiktok.com/@educycle.3zeroclub" target="_blank"
+            aria-label="TikTok">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
+            </svg>
+          </a>
+          <a class="social-btn instagram-btn" href="https://www.instagram.com/educycle.3zeroclub" target="_blank"
+            aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+          </a>
+          <a class="social-btn email-btn" href="mailto:educycle@aiu.edu.my" aria-label="Email">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h5>The Product</h5>
+        <ul>
+          <li><a href="#product">The Math Board</a></li>
+          <li><a href="#product">Upcycled Magnetic Caps</a></li>
+          <li><a href="Educycle_Math_Activity_Book.pdf" download>Worksheet PDF Guide</a></li>
+          <li><a href="#how-it-works">How We Upcycle</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Our Initiative</h5>
+        <ul>
+          <li><a href="#about">The 3Zero Concept</a></li>
+          <li><a href="#milestones">Achievements</a></li>
+          <li><a href="#testimonials">Community Voices</a></li>
+          <li><a href="#media">Media & Video</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Connect</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/company/edu-cycle/" target="_blank">LinkedIn</a></li>
+          <li><a href="https://www.instagram.com/educycle.3zeroclub" target="_blank">Instagram</a></li>
+          <li><a href="https://www.tiktok.com/@educycle.3zeroclub" target="_blank">TikTok</a></li>
+          <li><a href="mailto:educycle@aiu.edu.my">Email AIU Team</a></li>
+          <li><a href="https://aiu.edu.my" target="_blank">AIU University</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Educycle - AIU 3Zero Club, Albukhary International University. Handcrafted with ♻️</span>
+      <span>Affiliated with <a href="https://3zero.club" target="_blank">3Zero Club Global</a></span>
+    </div>
+  </footer>
+
+
+
+  <script>
+    function toggleMobileMenu() {
+      const toggle = document.querySelector('.mobile-menu-toggle');
+      const links = document.querySelector('.nav-links');
+      toggle.classList.toggle('active');
+      links.classList.toggle('open');
+    }
+
+    function closeMobileMenu() {
+      const toggle = document.querySelector('.mobile-menu-toggle');
+      const links = document.querySelector('.nav-links');
+      if (toggle && links) {
+        toggle.classList.remove('active');
+        links.classList.remove('open');
+      }
+    }
+
+
+
+    function openLink(url) {
+      window.open(url, '_blank');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      // Unified scroll animation observer for fade-up, slide-left, slide-right
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target); // animate once, then stop watching
+          }
+        });
+      }, { threshold: 0.12 });
+
+      document.querySelectorAll('.fade-up, .slide-left, .slide-right').forEach(el => {
+        observer.observe(el);
+      });
+    });
+  </script>
+</body>
+
+</html>

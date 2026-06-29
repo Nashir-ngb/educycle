@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Team – Educycle | AIU 3Zero Club</title>
+  <meta name="description"
+    content="Meet the passionate student team behind Educycle — an AIU 3Zero Club social business initiative turning plastic bottle caps into hands-on math learning tools.">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,500;1,700&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ── DESIGN SYSTEM TOKENS (mirrors index.html) ── */
+    :root {
+      --green-primary: #2e7d32;
+      --green-dark: #1b5e20;
+      --green-light: #e8f5e9;
+      --orange-primary: #f57c00;
+      --orange-dark: #e65100;
+      --orange-light: #fff3e0;
+      --ink: #1c201c;
+      --cream: #faf9f5;
+      --paper: #ffffff;
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(46, 125, 50, 0.08);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.6;
+      overflow-x: hidden;
+      padding-top: 70px;
+    }
+
+    /* ── NAVIGATION ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5vw;
+      height: 70px;
+      background: rgba(250, 249, 245, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(46, 125, 50, 0.1);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: var(--green-dark);
+      text-decoration: none;
+    }
+
+    .nav-logo img {
+      height: 44px;
+      width: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--orange-primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 0.95rem;
+      font-weight: 500;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 2.5px;
+      background: var(--orange-primary);
+      transform: scaleX(0);
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: var(--green-primary);
+    }
+
+    .nav-links a:hover::after {
+      transform: scaleX(1);
+    }
+
+    .nav-links a.active {
+      color: var(--green-primary);
+    }
+
+    .nav-links a.active::after {
+      transform: scaleX(1);
+    }
+
+    .nav-cta {
+      background: var(--green-primary);
+      color: #fff !important;
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-weight: 600 !important;
+      box-shadow: 0 4px 12px rgba(46, 125, 50, 0.15);
+    }
+
+    .nav-cta::after {
+      display: none !important;
+    }
+
+    .nav-cta:hover {
+      background: var(--orange-primary) !important;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(245, 124, 0, 0.25);
+    }
+
+    .mobile-menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 28px;
+      height: 20px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 150;
+      padding: 0;
+    }
+
+    .mobile-menu-toggle .bar {
+      width: 100%;
+      height: 3px;
+      background-color: var(--green-dark);
+      border-radius: 99px;
+      transition: var(--transition);
+    }
+
+    /* ── HERO SECTION ── */
+    .team-hero {
+      background: linear-gradient(135deg, var(--green-dark) 0%, #2a6632 50%, #1a4a1d 100%);
+      padding: 100px 5vw 80px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .team-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(245, 124, 0, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 40%);
+      pointer-events: none;
+    }
+
+    .hero-deco-dots {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 200px;
+      height: 200px;
+      background-image: radial-gradient(circle, rgba(255, 255, 255, 0.15) 1.5px, transparent 1.5px);
+      background-size: 18px 18px;
+      pointer-events: none;
+    }
+
+    .hero-deco-dots-bl {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 160px;
+      height: 160px;
+      background-image: radial-gradient(circle, rgba(245, 124, 0, 0.2) 1.5px, transparent 1.5px);
+      background-size: 16px 16px;
+      pointer-events: none;
+    }
+
+    .team-hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .team-hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(245, 124, 0, 0.15);
+      border: 1px solid rgba(245, 124, 0, 0.35);
+      border-radius: 999px;
+      padding: 6px 18px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #ffb74d;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      margin-bottom: 1.8rem;
+    }
+
+    .team-hero-eyebrow span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--orange-primary);
+    }
+
+    .team-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 1.4rem;
+      font-weight: 700;
+    }
+
+    .team-hero h1 em {
+      color: #ffb74d;
+      font-style: normal;
+    }
+
+    .team-hero-sub {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.78);
+      max-width: 580px;
+      margin: 0 auto 2.5rem;
+      font-weight: 400;
+    }
+
+    .hero-back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: var(--transition);
+      margin-top: 1rem;
+    }
+
+    .hero-back-link:hover {
+      color: #ffb74d;
+      gap: 12px;
+    }
+
+    /* ── SECTION COMMON ── */
+    .section-eyebrow {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--orange-primary);
+      margin-bottom: .6rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 3.2vw, 2.8rem);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      color: var(--green-dark);
+    }
+
+    .section-sub {
+      color: #4a504a;
+      max-width: 600px;
+      font-size: 1.02rem;
+      margin-bottom: 3rem;
+    }
+
+    /* ── ADVISOR SECTION ── */
+    #advisor {
+      padding: 100px 5vw;
+      background: var(--paper);
+    }
+
+    .advisor-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 5rem;
+      align-items: start;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .advisor-portrait-wrap {
+      position: relative;
+      padding-bottom: 40px;
+    }
+
+    .advisor-portrait-frame {
+      position: relative;
+      border-radius: 28px;
+      overflow: hidden;
+      background: linear-gradient(145deg, var(--green-light), #d4edda);
+      aspect-ratio: 3 / 4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 24px 56px rgba(27, 94, 32, 0.18);
+    }
+
+    .advisor-portrait-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+
+    /* Gold ring accent */
+    .advisor-portrait-frame::before {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border-radius: 33px;
+      background: linear-gradient(135deg, #c9a227, #f0c040, #c9a227);
+      z-index: -1;
+    }
+
+    .advisor-avatar-placeholder {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--green-primary), var(--green-dark));
+      border: 5px solid #c9a227;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .advisor-badge {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--green-dark), var(--green-primary));
+      color: #fff;
+      padding: 14px 22px;
+      border-radius: 18px;
+      box-shadow: 0 8px 24px rgba(27, 94, 32, 0.3);
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-align: center;
+      line-height: 1.5;
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      width: calc(100% - 20px);
+      max-width: 320px;
+    }
+
+    .advisor-badge strong {
+      display: block;
+      font-size: 1rem;
+      font-weight: 800;
+      margin-bottom: 2px;
+    }
+
+    .advisor-badge-icon {
+      font-size: 1.4rem;
+      margin-bottom: 6px;
+    }
+
+    .advisor-note-wrap {
+      padding-top: 0.5rem;
+    }
+
+    .advisor-quote-mark {
+      font-family: 'Playfair Display', serif;
+      font-size: 8rem;
+      line-height: 0.5;
+      color: var(--orange-primary);
+      opacity: 0.15;
+      margin-bottom: -1rem;
+      display: block;
+    }
+
+    .advisor-speech {
+      font-size: 1.02rem;
+      color: #4a504a;
+      line-height: 1.9;
+    }
+
+    .advisor-speech p+p {
+      margin-top: 1.3rem;
+    }
+
+    .advisor-signature {
+      margin-top: 2.5rem;
+      padding: 1.8rem 2rem;
+      background: linear-gradient(135deg, var(--green-light), #f0f9f0);
+      border-radius: var(--radius);
+      border-left: 4px solid var(--green-primary);
+    }
+
+    .advisor-signature strong {
+      display: block;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--green-dark);
+      margin-bottom: 0.3rem;
+    }
+
+    .advisor-signature span {
+      display: block;
+      font-size: 0.88rem;
+      color: #5a705a;
+      font-weight: 500;
+    }
+
+    .advisor-badge .badge-line {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 500;
+      opacity: 0.88;
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+
+    /* ── STATS STRIP ── */
+    .team-stats {
+      background: linear-gradient(135deg, var(--green-dark), var(--green-primary));
+      padding: 50px 5vw;
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .team-stat-item {
+      text-align: center;
+      color: #fff;
+    }
+
+    .team-stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.6rem;
+      font-weight: 700;
+      color: var(--orange-primary);
+      line-height: 1;
+    }
+
+    .team-stat-label {
+      font-size: 0.85rem;
+      opacity: 0.9;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-top: 6px;
+      font-weight: 600;
+    }
+
+    /* ── ORG CHART SECTION ── */
+    #org-chart {
+      padding: 90px 5vw;
+      background: var(--cream);
+    }
+
+    .org-chart-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 4rem;
+    }
+
+    .org-chart-img-wrap {
+      max-width: 500px;
+      margin: 0 auto;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 30px 70px rgba(27, 94, 32, 0.15), 0 0 0 6px rgba(201, 162, 39, 0.22);
+      transition: var(--transition);
+      cursor: zoom-in;
+    }
+
+    .org-chart-img-wrap:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 40px 80px rgba(27, 94, 32, 0.22), 0 0 0 8px rgba(201, 162, 39, 0.38);
+    }
+
+    .org-chart-img-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ── TEAM CARDS SECTION ── */
+    #team {
+      padding: 90px 5vw;
+      background: var(--paper);
+    }
+
+    .team-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 4rem;
+    }
+
+    .team-grid-top {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      max-width: 720px;
+      margin: 0 auto 2rem;
+    }
+
+    .team-grid-bottom {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .team-card {
+      background: var(--cream);
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(46, 125, 50, 0.08);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.05);
+      transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+      position: relative;
+    }
+
+    .team-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 24px 56px rgba(46, 125, 50, 0.14);
+      border-color: rgba(245, 124, 0, 0.3);
+    }
+
+    .team-card-photo {
+      position: relative;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Colored gradient background per card */
+    .team-card-photo.bg-gold {
+      background: linear-gradient(145deg, #fdf5d9, #f5e8a0);
+    }
+
+    .team-card-photo.bg-slate {
+      background: linear-gradient(145deg, #dce8ef, #b0c8d8);
+    }
+
+    .team-card-photo.bg-green {
+      background: linear-gradient(145deg, var(--green-light), #c8e6cc);
+    }
+
+    .team-card-photo.bg-purple {
+      background: linear-gradient(145deg, #f3e5f5, #d7b8e8);
+    }
+
+    .team-card-photo.bg-red {
+      background: linear-gradient(145deg, #fce4ec, #f4a8be);
+    }
+
+    /* Subtle dot pattern overlay */
+    .team-card-photo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
+      background-size: 14px 14px;
+      pointer-events: none;
+    }
+
+    .card-role-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      padding: 5px 12px;
+      border-radius: 999px;
+      z-index: 2;
+    }
+
+    .card-role-badge.key {
+      background: linear-gradient(135deg, #c9a227, #f0c040);
+      color: #1c201c;
+    }
+
+    .card-role-badge.deputy {
+      background: linear-gradient(135deg, #607d8b, #546e7a);
+      color: #fff;
+    }
+
+    .card-role-badge.finance {
+      background: linear-gradient(135deg, var(--green-primary), var(--green-dark));
+      color: #fff;
+    }
+
+    .card-role-badge.events {
+      background: linear-gradient(135deg, #7b1fa2, #6a1b9a);
+      color: #fff;
+    }
+
+    .card-role-badge.media {
+      background: linear-gradient(135deg, #d32f2f, #c62828);
+      color: #fff;
+    }
+
+    .member-avatar-initials {
+      position: relative;
+      z-index: 1;
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      border: 4px solid #c9a227;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .member-photo {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+
+    .team-card-body {
+      padding: 1.6rem;
+      text-align: center;
+    }
+
+    .team-card-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--green-dark);
+      margin-bottom: 0.25rem;
+    }
+
+    .team-card-body .role {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--orange-primary);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .card-divider {
+      width: 40px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--green-primary), var(--orange-primary));
+      border-radius: 2px;
+      margin: 0.9rem auto;
+    }
+
+    .team-card-body p {
+      font-size: 0.87rem;
+      color: #5a605a;
+      line-height: 1.65;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--green-dark);
+      color: rgba(255, 255, 255, 0.7);
+      padding: 50px 5vw 24px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .footer-brand a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .footer-brand a img {
+      height: 36px;
+      width: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--orange-primary);
+    }
+
+    .footer-brand p {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      max-width: 280px;
+    }
+
+    footer h5 {
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      margin-bottom: 1rem;
+    }
+
+    footer ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    footer ul a {
+      color: rgba(255, 255, 255, 0.65);
+      text-decoration: none;
+      font-size: 0.88rem;
+      transition: var(--transition);
+    }
+
+    footer ul a:hover {
+      color: var(--orange-primary);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 1.4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-size: 0.82rem;
+    }
+
+    .footer-bottom a {
+      color: var(--orange-primary);
+      text-decoration: none;
+    }
+
+    .footer-bottom a:hover {
+      text-decoration: underline;
+    }
+
+    /* ── SCROLL ANIMATIONS ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .slide-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .slide-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .slide-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .slide-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Card stagger delays */
+    .team-grid-top .team-card:nth-child(1) {
+      transition-delay: 0.05s;
+    }
+
+    .team-grid-top .team-card:nth-child(2) {
+      transition-delay: 0.15s;
+    }
+
+    .team-grid-bottom .team-card:nth-child(1) {
+      transition-delay: 0.05s;
+    }
+
+    .team-grid-bottom .team-card:nth-child(2) {
+      transition-delay: 0.15s;
+    }
+
+    .team-grid-bottom .team-card:nth-child(3) {
+      transition-delay: 0.25s;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 960px) {
+      .advisor-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .advisor-portrait-frame {
+        max-width: 320px;
+        margin: 0 auto;
+        aspect-ratio: 1 / 1;
+      }
+
+      .team-grid-top {
+        grid-template-columns: 1fr;
+        max-width: 380px;
+      }
+
+      .team-grid-bottom {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .team-grid-bottom {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: rgba(250, 249, 245, 0.98);
+        backdrop-filter: blur(16px);
+        padding: 1.5rem 5vw;
+        gap: 1.2rem;
+        border-bottom: 1px solid rgba(46, 125, 50, 0.12);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      }
+
+      .mobile-menu-toggle {
+        display: flex;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <img src="images/logo.png" alt="Educycle Logo" onerror="this.style.display='none'">
+      Educycle
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html#about" onclick="closeMobileMenu()">Our Concept</a></li>
+      <li><a href="index.html#product" onclick="closeMobileMenu()">The Board</a></li>
+      <li><a href="index.html#how-it-works" onclick="closeMobileMenu()">How It Works</a></li>
+      <li><a href="index.html#milestones" onclick="closeMobileMenu()">Achievements</a></li>
+      <li><a href="index.html#media" onclick="closeMobileMenu()">Media</a></li>
+      <li><a href="team.html" class="active" onclick="closeMobileMenu()">Our Team</a></li>
+      <li><a
+          href="https://wa.me/60174832498?text=Hi%20Educycle%20Team!%20I%20would%20like%20to%20order%20the%20Magnetic%20Math%20Learning%20Board%20(RM%2025.00).%20Please%20share%20payment%20and%20delivery%20details.%20Thank%20you!"
+          target="_blank" class="nav-cta" onclick="closeMobileMenu()">Order Board</a></li>
+    </ul>
+    <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle Menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+  </nav>
+
+
+
+  <!-- ADVISOR SECTION -->
+  <section id="advisor">
+    <div class="advisor-grid">
+
+      <!-- Portrait column -->
+      <div class="slide-left advisor-portrait-wrap">
+        <div class="advisor-portrait-frame">
+          <img src="images/Md. Alia.png" alt="Madam Aliaa Diyana Zamri, Advisor of EduCycle"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div class="advisor-avatar-placeholder" style="display:none;">AD</div>
+        </div>
+        <div class="advisor-badge">
+          <strong>Madam Aliaa Diyana Zamri</strong>
+          <span class="badge-line">Advisor, EduCycle</span>
+          <span class="badge-line">School of Business &amp; Social Sciences</span>
+          <span class="badge-line">Albukhary International University</span>
+        </div>
+      </div>
+
+      <!-- Speech column -->
+      <div class="slide-right advisor-note-wrap">
+        <p class="section-eyebrow">A Word From Our Advisor</p>
+        <h2 class="section-title">Advisor's Note</h2>
+        <span class="advisor-quote-mark">"</span>
+
+        <div class="advisor-speech">
+          <p>It is with great pride that I introduce EduCycle, a student-led social business initiative that
+            demonstrates how innovative ideas can create meaningful and lasting social impact. EduCycle addresses two
+            important challenges facing our communities today: improving mathematics education for young learners and
+            reducing plastic waste through creative recycling.</p>
+
+          <p>By transforming discarded plastic bottle caps into interactive Eco-Learning Kits, EduCycle provides
+            children with an engaging and hands-on approach to learning mathematics while promoting environmental
+            responsibility. This initiative reflects the belief that education and sustainability can work hand in hand
+            to build a better future.</p>
+
+          <p>What makes EduCycle truly remarkable is the passion, creativity, and commitment demonstrated by our
+            students. They have embraced the principles of social business by developing a solution that not only
+            addresses real societal needs but also strives to be sustainable and scalable. Their work exemplifies the
+            values of innovation, collaboration, empathy, and responsible leadership that we seek to cultivate at
+            Albukhary International University.</p>
+
+          <p>I hope EduCycle will continue to inspire students, educators, parents, and communities to recognise that
+            even simple ideas, when driven by purpose and compassion, can create significant positive change. I
+            congratulate the entire EduCycle team on their dedication and achievements, and I look forward to witnessing
+            the continued growth and impact of this meaningful initiative.</p>
+        </div>
+
+        <div class="advisor-signature">
+          <strong>Madam Aliaa Diyana Zamri</strong>
+          <span>Advisor, EduCycle</span>
+          <span>School of Business and Social Sciences</span>
+          <span>Albukhary International University</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- STATS STRIP -->
+  <div class="team-stats">
+    <div class="team-stat-item">
+      <div class="team-stat-num">6</div>
+      <div class="team-stat-label">Team Members</div>
+    </div>
+    <div class="team-stat-item">
+      <div class="team-stat-num">1</div>
+      <div class="team-stat-label">Faculty Advisor</div>
+    </div>
+    <div class="team-stat-item">
+      <div class="team-stat-num">3ZERO</div>
+      <div class="team-stat-label">Social Business Framework</div>
+    </div>
+    <div class="team-stat-item">
+      <div class="team-stat-num">AIU</div>
+      <div class="team-stat-label">Albukhary International University</div>
+    </div>
+  </div>
+
+
+
+  <!-- MEET THE TEAM -->
+  <section id="team">
+    <div class="team-header fade-up">
+      <p class="section-eyebrow">The Dreamers &amp; Doers</p>
+      <h2 class="section-title">Meet the EduCycle Team</h2>
+      <p class="section-sub" style="margin: 0 auto;">Five driven students from Albukhary International University united
+        by one purpose, making learning joyful and the planet a little cleaner.</p>
+    </div>
+
+    <!-- Top row: Key Person & Deputy Key Person -->
+    <div class="team-grid-top">
+
+      <div class="team-card fade-up">
+        <div class="team-card-photo bg-gold">
+          <span class="card-role-badge key">⭐ Key Person</span>
+          <img class="member-photo" src="images/Azhari.png" alt="Azhari Hussain"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div class="member-avatar-initials" style="background: linear-gradient(135deg,#b8860b,#daa520); display:none;">AH</div>
+        </div>
+        <div class="team-card-body">
+          <h3>Azhari Hussain</h3>
+          <p class="role">Key Person</p>
+          <div class="card-divider"></div>
+          <p>Leads the EduCycle initiative with vision and drive, coordinating team efforts and steering the social
+            business towards sustainable impact across Malaysia.</p>
+        </div>
+      </div>
+
+      <div class="team-card fade-up">
+        <div class="team-card-photo bg-slate">
+          <span class="card-role-badge deputy">🤝 Deputy</span>
+          <img class="member-photo" src="images/Rivaldo.png" alt="Rivaldo Hungwe"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div class="member-avatar-initials" style="background: linear-gradient(135deg,#607d8b,#455a64); display:none;">RH</div>
+        </div>
+        <div class="team-card-body">
+          <h3>Rivaldo Hungwe</h3>
+          <p class="role">Deputy Key Person</p>
+          <div class="card-divider"></div>
+          <p>Supports strategic direction and team coordination, ensuring operations run seamlessly while bringing a
+            global perspective to the initiative's growth.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom row: Finance, Events, Media -->
+    <div class="team-grid-bottom">
+
+      <div class="team-card fade-up">
+        <div class="team-card-photo bg-green">
+          <span class="card-role-badge finance">💼 Finance</span>
+          <div class="member-avatar-initials"
+            style="background: linear-gradient(135deg,var(--green-primary),var(--green-dark)); font-size:1.4rem; letter-spacing:-1px;">
+            NAS</div>
+        </div>
+        <div class="team-card-body">
+          <h3>Nur Ain Syadiah Ahmed Mashoor</h3>
+          <p class="role">Finance</p>
+          <div class="card-divider"></div>
+          <p>Manages the financial health of EduCycle, budgeting kit production, tracking revenue, and ensuring the
+            social business remains sustainable and scalable.</p>
+        </div>
+      </div>
+
+      <div class="team-card fade-up">
+        <div class="team-card-photo bg-purple">
+          <span class="card-role-badge events">🎪 Events</span>
+          <img class="member-photo" src="images/Andile.png" alt="Andile Siso"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div class="member-avatar-initials" style="background: linear-gradient(135deg,#7b1fa2,#4a148c); display:none;">AS</div>
+        </div>
+        <div class="team-card-body">
+          <h3>Andile Siso</h3>
+          <p class="role">Event Management</p>
+          <div class="card-divider"></div>
+          <p>Plans and executes EduCycle's outreach events, from school visits and university showcases to community
+            workshops, bringing the mission to life on the ground.</p>
+        </div>
+      </div>
+
+      <div class="team-card fade-up">
+        <div class="team-card-photo bg-red">
+          <span class="card-role-badge media">📱 Media</span>
+          <div class="member-avatar-initials"
+            style="background: linear-gradient(135deg,#d32f2f,#b71c1c); font-size:1.4rem; letter-spacing:-1px;">NHR
+          </div>
+        </div>
+        <div class="team-card-body">
+          <h3>Najihah Hani Mohd Redzuan</h3>
+          <p class="role">Head of Media</p>
+          <div class="card-divider"></div>
+          <p>Shapes EduCycle's online presence across Instagram, TikTok, and LinkedIn, crafting stories that connect
+            the initiative with educators, parents, and supporters.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html">
+          <img src="images/logo.png" alt="Educycle Logo" onerror="this.style.display='none'">
+          Educycle
+        </a>
+        <p>A student-led social business by the AIU 3Zero Club at Albukhary International University — upcycling plastic
+          bottle caps into magnetic math learning tools.</p>
+      </div>
+
+      <div>
+        <h5>Navigate</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#about">Our Concept</a></li>
+          <li><a href="index.html#product">The Board</a></li>
+          <li><a href="index.html#milestones">Achievements</a></li>
+          <li><a href="team.html">Our Team</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h5>Connect</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/company/edu-cycle/" target="_blank">LinkedIn</a></li>
+          <li><a href="https://www.instagram.com/educycle.3zeroclub" target="_blank">Instagram</a></li>
+          <li><a href="https://www.tiktok.com/@educycle.3zeroclub" target="_blank">TikTok</a></li>
+          <li><a href="mailto:educycle@aiu.edu.my">Email the Team</a></li>
+          <li><a href="https://aiu.edu.my" target="_blank">AIU University</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Educycle – AIU 3Zero Club, Albukhary International University. Handcrafted with ♻️</span>
+      <span>Affiliated with <a href="https://3zero.club" target="_blank">3Zero Club Global</a></span>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMobileMenu() {
+      document.querySelector('.mobile-menu-toggle').classList.toggle('active');
+      document.querySelector('.nav-links').classList.toggle('open');
+    }
+
+    function closeMobileMenu() {
+      const toggle = document.querySelector('.mobile-menu-toggle');
+      const links = document.querySelector('.nav-links');
+      if (toggle && links) {
+        toggle.classList.remove('active');
+        links.classList.remove('open');
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-up, .slide-left, .slide-right').forEach(el => {
+        observer.observe(el);
+      });
+    });
+  </script>
+
+</body>
+
+</html>
